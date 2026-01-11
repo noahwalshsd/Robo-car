@@ -1,7 +1,6 @@
 #include <Arduino.h>
-#include <string>
 //MAIN COMMAND
-std::string command="____"
+String cmd="____";
 // Motor A/LEFT
 #define A_DIR 12
 #define A_PWM 3
@@ -116,6 +115,6 @@ void setup() {
 }
 //run all
 void loop() {
-    executeString(command)
+    executeString(cmd);
     while (true){}
   }
