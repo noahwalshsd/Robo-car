@@ -3,20 +3,20 @@
 //MAIN COMMAND
 std::string command="____"
 // Motor A/LEFT
-#define A_DIR    12
-#define A_PWM     3
-#define A_BRAKE   9
-#define ENC_LEFT   2
+#define A_DIR 12
+#define A_PWM 3
+#define A_BRAKE 9
+#define ENC_LEFT 2
 // Motor B/RIGHT
-#define B_DIR    13
-#define B_PWM    11
-#define B_BRAKE   8
-#define ENC_RIGHT  4
+#define B_DIR 13
+#define B_PWM 11
+#define B_BRAKE 8
+#define ENC_RIGHT 4
 //define command constants in order f/b, F/B, l/r, speed
 const int COUNTS_SHORT = 306;   // 12.5 cm
-const int COUNTS_LONG  = 612;   // 25 cm
-const int COUNTS_TURN  = 251;   // 90 degrees in-place
-const int MOTOR_SPEED  = 150;   // PWM 0–255
+const int COUNTS_LONG = 612;   // 25 cm
+const int COUNTS_TURN = 251;   // 90 degrees in-place
+const int MOTOR_SPEED = 150;   // PWM 0–255
 //define encoders
 volatile long leftCount  = 0;
 volatile long rightCount = 0;
@@ -54,7 +54,7 @@ void setRightMotor(int speed) {
 // reset encoders
 void resetEncoders() {
   noInterrupts();
-  leftCount  = 0;
+  leftCount = 0;
   rightCount = 0;
   interrupts();
 }
@@ -110,7 +110,7 @@ void setup() {
   pinMode(ENC_LEFT, INPUT_PULLUP);
   pinMode(ENC_RIGHT, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(ENC_LEFT), leftEncoderISR, RISING);
-  PCICR  |= (1 << PCIE2);
+  PCICR |= (1 << PCIE2);
   PCMSK2 |= (1 << PCINT20);
   Serial.begin(9600);
 }
