@@ -1,4 +1,9 @@
 #include <Arduino.h>
+//button setup
+#define button 13
+bool run_req=false;
+bool ogbutton_state=HIGH;
+bool ran=false;
 //MAIN COMMAND
 String cmd="____";
 // Motor A/LEFT
@@ -108,6 +113,7 @@ void setup() {
   pinMode(B_BRAKE, OUTPUT);
   pinMode(ENC_LEFT, INPUT_PULLUP);
   pinMode(ENC_RIGHT, INPUT_PULLUP);
+  pinmode(button, INPUT_PULLUP)
   attachInterrupt(digitalPinToInterrupt(ENC_LEFT), leftEncoderISR, RISING);
   PCICR |= (1 << PCIE2);
   PCMSK2 |= (1 << PCINT20);
@@ -115,6 +121,15 @@ void setup() {
 }
 //run all
 void loop() {
+  bool nubutton_state=digitalread(button);
+  if (nubutton_state==LOW && ogbutton_state==HIGH){
+    run_req=!run_req;
+    ran=false;
+    delay(100);
+  }
+  ogbutton_state=nubutton_state;
+  if (run_req==true && ran=false){
     executeString(cmd);
-    while (true){}
+    ran=true;
+  }
   }
