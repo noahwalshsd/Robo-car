@@ -113,7 +113,7 @@ void setup() {
   pinMode(B_BRAKE, OUTPUT);
   pinMode(ENC_LEFT, INPUT_PULLUP);
   pinMode(ENC_RIGHT, INPUT_PULLUP);
-  pinmode(button, INPUT_PULLUP)
+  pinMode(button, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(ENC_LEFT), leftEncoderISR, RISING);
   PCICR |= (1 << PCIE2);
   PCMSK2 |= (1 << PCINT20);
@@ -128,7 +128,7 @@ void loop() {
     delay(100);
   }
   ogbutton_state=nubutton_state;
-  if (run_req==true && ran=false){
+  if (run_req==true && ran==false){
     executeString(cmd);
     ran=true;
   }
