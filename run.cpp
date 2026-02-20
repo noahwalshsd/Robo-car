@@ -121,7 +121,7 @@ void setup() {
 }
 //run all
 void loop() {
-  bool nubutton_state=digitalread(button);
+  bool nubutton_state=digitalRead(button);
   if (nubutton_state==LOW && ogbutton_state==HIGH){
     run_req=!run_req;
     ran=false;
