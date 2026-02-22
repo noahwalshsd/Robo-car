@@ -114,19 +114,24 @@ void loop() {
     switch (command) {
       case 'F':
         moveForward();
+        std::print("F");
         break;
       case 'B':
         moveBackward();
+        std::print("B");
         break;
       case 'L':
         turnLeft90();
+        std::print("L");
         break;
       case 'R':
         turnRight90();
+        std::print("R");
         break;
       default:
         stopMotors();
         break;
     }
   }
+
 }
