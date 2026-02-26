@@ -1,3 +1,28 @@
+// #include <iostream>
+// #include <cmath>
+// //defined with practice
+// const int timeF=____;
+// const int timef=_____;
+// const int timeL=_____;
+// const int time= _______;
+// //setup outside any function
+// int F=0;
+// int f=0;
+// int L=0;
+// int ary=sizeof(myStrings)/sizeof(myStrings[0]);
+// for (int i=0; i<ary; i++){
+// 	if (myStrings[i]== F || myStrings[i]=B){
+// 		F++;
+// }
+// elif (myStrings[i]== f || myStrings[i]=b){
+// 		f++;
+// }
+// elif (myStrings[i]== L || myStrings[i]=R){
+// 		L++;
+// }
+// }	
+// //calculate	
+// const int delay=(time-(F*timeF+f*timef+sizeof()*timeL)/(sizeof(myStrings));
 // Encoder Pins (Must be interrupt pins)
 const int encoderPinA = 18; 
 const int encoderPinB = 19;
