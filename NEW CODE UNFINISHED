@@ -1,0 +1,326 @@
+// Encoder Pins (Must be interrupt pins)
+const int encoderPinA = 18; 
+const int encoderPinB = 19;
+
+//motorA
+int directionPinR = 12;
+int pwmPinR = 3;
+int brakePinR = 9;
+
+//motorB
+int directionPinL = 13;
+int pwmPinL = 11;
+int brakePinL = 8;
+
+//start button
+int startPin = 7;
+//button boolean
+bool started = false;
+
+//boolean to switch direction
+bool directionState;
+
+//boolean for move
+bool moveOver = false;
+
+//encodermath
+volatile long encoderTicksR = 0;
+volatile long encoderTicksL = 0;
+long targetTicks = 0;
+
+//route                 VVV EDIT HERE VVV
+char *myStrings[] = {"F", "B", "L", "R", "F", "B"};
+
+void setup() {
+  
+//define pins
+pinMode(directionPinR, OUTPUT);
+pinMode(pwmPinR, OUTPUT);
+pinMode(brakePinR, OUTPUT);
+
+pinMode(directionPinL, OUTPUT);
+pinMode(pwmPinL, OUTPUT);
+pinMode(brakePinL, OUTPUT);
+
+pinMode(startPin, INPUT);
+
+// Attach interrupt to pin A (Trigger on RISING edge)
+  attachInterrupt(digitalPinToInterrupt(encoderPinA), countEncoderR, RISING);
+
+// Attach interrupt to pin b (Trigger on RISING edge)
+  attachInterrupt(digitalPinToInterrupt(encoderPinB), countEncoderL, RISING);
+
+Serial.begin(9600);
+}
+
+// Encoder interrupt function
+void countEncoderR() {
+  // Check direction based on Phase B
+  //if (digitalRead(encoderPinB) == HIGH) {
+  encoderTicksR++;
+  //Serial.println(encoderTicks);
+  //} else {
+  //  encoderTicks--;
+  //}
+}
+
+void countEncoderL() {
+  // Check direction based on Phase B
+  //if (digitalRead(encoderPinB) == HIGH) {
+  encoderTicksL++;
+  //Serial.println(encoderTicks);
+  //} else {
+  //  encoderTicks--;
+  //}
+}
+
+void moveForward()  {
+  moveOver = false;
+  //direction set
+  digitalWrite(directionPinR, LOW);
+  digitalWrite(directionPinL, HIGH);
+  //release breaks
+  digitalWrite(brakePinR, LOW);
+  digitalWrite(brakePinL, LOW);
+  
+  encoderTicksR = 0;
+  encoderTicksL = 0;
+  targetTicks = 700;
+
+  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
+    analogWrite(pwmPinR, 150);   // Set speed
+    analogWrite(pwmPinL, 150);
+  }
+  analogWrite(pwmPinR, 0);
+  analogWrite(pwmPinL, 0);     // Speed 0
+  digitalWrite(brakePinR, HIGH);
+  digitalWrite(brakePinL, HIGH);
+  Serial.println("Move Completed.");
+  Serial.println(encoderTicksL + "+" + encoderTicksR);
+  moveOver = true;
+}
+
+void moveBackward()  {
+  moveOver = false;
+  //direction set
+  digitalWrite(directionPinR, HIGH);
+  digitalWrite(directionPinL, LOW);
+  //release breaks
+  digitalWrite(brakePinR, LOW);
+  digitalWrite(brakePinL, LOW);
+  
+  encoderTicksR = 0;
+  encoderTicksL = 0;
+  targetTicks = 700;
+
+  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
+    analogWrite(pwmPinR, 150);   // Set speed
+    analogWrite(pwmPinL, 150);
+  }
+  analogWrite(pwmPinR, 0);
+  analogWrite(pwmPinL, 0);     // Speed 0
+  digitalWrite(brakePinR, HIGH);
+  digitalWrite(brakePinL, HIGH);
+  Serial.println("Move Completed.");
+  Serial.println(encoderTicksL + "+" + encoderTicksR);
+  moveOver = true;
+  // //direction set
+  // digitalWrite(directionPinR, HIGH);
+  // digitalWrite(directionPinL, LOW);
+  // //release breaks
+  // digitalWrite(brakePinR, LOW);
+  // digitalWrite(brakePinL, LOW);
+
+  // //set work duty for the motor
+  // analogWrite(pwmPinR, 100);
+  // analogWrite(pwmPinL, 100);
+
+  // delay(2000);
+
+  // //activate breaks
+  // digitalWrite(brakePinR, HIGH);
+  // digitalWrite(brakePinL, HIGH);
+
+  // //set work duty for the motor to 0 (off)
+  // analogWrite(pwmPinR, 0);
+  // analogWrite(pwmPinL, 0);
+
+  // delay(2000);
+}
+
+void turnLeft()  {
+  moveOver = false;
+  //direction set
+  digitalWrite(directionPinR, HIGH);
+  digitalWrite(directionPinL, HIGH);
+  //release breaks
+  digitalWrite(brakePinR, LOW);
+  digitalWrite(brakePinL, LOW);
+  
+  encoderTicksR = 0;
+  encoderTicksL = 0;
+  targetTicks = 143;
+
+  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
+    analogWrite(pwmPinR, 120);   // Set speed
+    analogWrite(pwmPinL, 120);
+  }
+  analogWrite(pwmPinR, 0);
+  analogWrite(pwmPinL, 0);     // Speed 0
+  digitalWrite(brakePinR, HIGH);
+  digitalWrite(brakePinL, HIGH);
+  Serial.println("Move Completed.");
+  Serial.println(encoderTicksL + "+" + encoderTicksR);
+  moveOver = true;
+
+  // //direction set
+  // digitalWrite(directionPinR, HIGH);
+  // digitalWrite(directionPinL, HIGH);
+  // //release breaks
+  // digitalWrite(brakePinR, LOW);
+  // digitalWrite(brakePinL, LOW);
+
+  // //set work duty for the motor
+  // analogWrite(pwmPinR, 100);
+  // analogWrite(pwmPinL, 100);
+
+  // delay(2000);
+
+  // //activate breaks
+  // digitalWrite(brakePinR, HIGH);
+  // digitalWrite(brakePinL, HIGH);
+
+  // //set work duty for the motor to 0 (off)
+  // analogWrite(pwmPinR, 0);
+  // analogWrite(pwmPinL, 0);
+
+  // delay(2000);
+}
+
+void turnRight()  {
+
+  moveOver = false;
+  //direction set
+  digitalWrite(directionPinR, LOW);
+  digitalWrite(directionPinL, LOW);
+  //release breaks
+  digitalWrite(brakePinR, LOW);
+  digitalWrite(brakePinL, LOW);
+  
+  encoderTicksR = 0;
+  encoderTicksL = 0;
+  targetTicks = 143;
+
+  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
+    analogWrite(pwmPinR, 120);   // Set speed
+    analogWrite(pwmPinL, 120);
+  }
+  analogWrite(pwmPinR, 0);
+  analogWrite(pwmPinL, 0);     // Speed 0
+  digitalWrite(brakePinR, HIGH);
+  digitalWrite(brakePinL, HIGH);
+  Serial.println("Move Completed.");
+  Serial.println(encoderTicksL + "+" + encoderTicksR);
+  moveOver = true;
+
+  // //direction set
+  // digitalWrite(directionPinR, LOW);
+  // digitalWrite(directionPinL, LOW);
+  // //release breaks
+  // digitalWrite(brakePinR, LOW);
+  // digitalWrite(brakePinL, LOW);
+
+  // //set work duty for the motor
+  // analogWrite(pwmPinR, 100);
+  // analogWrite(pwmPinL, 100);
+
+  // delay(2000);
+
+  // //activate breaks
+  // digitalWrite(brakePinR, HIGH);
+  // digitalWrite(brakePinL, HIGH);
+
+  // //set work duty for the motor to 0 (off)
+  // analogWrite(pwmPinR, 0);
+  // analogWrite(pwmPinL, 0);
+
+  // delay(2000);
+}
+
+void loop() {
+
+while(digitalRead(startPin) == LOW )
+{
+  
+}
+
+for (int i = 0; i < sizeof(myStrings); i++) 
+{
+  if(myStrings[i] == "F")  {
+    moveForward();
+    while(moveOver != true){
+      
+    }
+    delay(1000);
+  }
+  else if(myStrings[i] == "B")  {
+    moveBackward();
+    while(moveOver != true){
+      
+    }
+    delay(1000);
+  }
+  else if(myStrings[i] == "L")  {
+    turnLeft();
+    while(moveOver != true){
+      
+    }
+    delay(1000);
+  }
+  else if(myStrings[i] == "R")  {
+    turnRight();
+    while(moveOver != true){
+      
+    }
+    delay(1000);
+  }
+}
+
+
+/*
+//change direction every loop()
+directionState = !directionState;
+//write a low state to the direction pin (13)
+if(directionState == false){
+  digitalWrite(directionPinR, LOW);
+  digitalWrite(directionPinL, HIGH);
+
+}
+
+//write a high state to the direction pin (13)
+else{
+  digitalWrite(directionPinR, HIGH);
+  digitalWrite(directionPinL, LOW);
+}
+
+//release breaks
+digitalWrite(brakePinR, LOW);
+digitalWrite(brakePinL, LOW);
+
+//set work duty for the motor
+analogWrite(pwmPinR, 60);
+analogWrite(pwmPinL, 60);
+
+delay(2000);
+
+//activate breaks
+digitalWrite(brakePinR, HIGH);
+digitalWrite(brakePinL, HIGH);
+
+//set work duty for the motor to 0 (off)
+analogWrite(pwmPinR, 0);
+analogWrite(pwmPinL, 0);
+
+delay(2000);
+*/
+}
