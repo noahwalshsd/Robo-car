@@ -125,6 +125,32 @@ void moveForward()  {
   moveOver = true;
 }
 
+void movefor()  {
+  moveOver = false;
+  //direction set
+  digitalWrite(directionPinR, LOW);
+  digitalWrite(directionPinL, HIGH);
+  //release breaks
+  digitalWrite(brakePinR, LOW);
+  digitalWrite(brakePinL, LOW);
+  
+  encoderTicksR = 0;
+  encoderTicksL = 0;
+  targetTicks = 350;
+
+  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
+    analogWrite(pwmPinR, 150);   // Set speed
+    analogWrite(pwmPinL, 150);
+  }
+  analogWrite(pwmPinR, 0);
+  analogWrite(pwmPinL, 0);     // Speed 0
+  digitalWrite(brakePinR, HIGH);
+  digitalWrite(brakePinL, HIGH);
+  Serial.println("Move Completed.");
+  Serial.println(encoderTicksL + "+" + encoderTicksR);
+  moveOver = true;
+}
+
 void moveBackward()  {
   moveOver = false;
   //direction set
@@ -171,6 +197,32 @@ void moveBackward()  {
   // analogWrite(pwmPinL, 0);
 
   // delay(2000);
+}
+
+void moveback()  {
+  moveOver = false;
+  //direction set
+  digitalWrite(directionPinR, HIGH);
+  digitalWrite(directionPinL, LOW);
+  //release breaks
+  digitalWrite(brakePinR, LOW);
+  digitalWrite(brakePinL, LOW);
+  
+  encoderTicksR = 0;
+  encoderTicksL = 0;
+  targetTicks = 350;
+
+  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
+    analogWrite(pwmPinR, 150);   // Set speed
+    analogWrite(pwmPinL, 150);
+  }
+  analogWrite(pwmPinR, 0);
+  analogWrite(pwmPinL, 0);     // Speed 0
+  digitalWrite(brakePinR, HIGH);
+  digitalWrite(brakePinL, HIGH);
+  Serial.println("Move Completed.");
+  Serial.println(encoderTicksL + "+" + encoderTicksR);
+  moveOver = true;
 }
 
 void turnLeft()  {
@@ -290,6 +342,20 @@ for (int i = 0; i < sizeof(myStrings); i++)
   }
   else if(myStrings[i] == "B")  {
     moveBackward();
+    while(moveOver != true){
+      
+    }
+    delay(1000);
+  }
+  else if(myStrings[i] == "b")  {
+    moveback();
+    while(moveOver != true){
+      
+    }
+    delay(1000);
+  }
+    else if(myStrings[i] == "f")  {
+    movefor();
     while(moveOver != true){
       
     }
