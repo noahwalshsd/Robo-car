@@ -1,30 +1,39 @@
-// #include <iostream>
-// #include <cmath>
-// //defined with practice
-// const int timeF=____;
-// const int timef=_____;
-// const int timeL=_____;
-// const int time= _______;
+#include <iostream>
+#include <cmath>
 // //setup outside any function
-// int F=0;
-// int f=0;
-// int L=0;
-// int ary=sizeof(myStrings)/sizeof(myStrings[0]);
-// for (int i=0; i<ary; i++){
-// 	if (myStrings[i]== F || myStrings[i]=B){
-// 		F++;
-// }
-// elif (myStrings[i]== f || myStrings[i]=b){
-// 		f++;
-// }
-// elif (myStrings[i]== L || myStrings[i]=R){
-// 		L++;
-// }
-// }	
-// //calculate	
-// const int delay=(time-(F*timeF+f*timef+sizeof()*timeL)/(sizeof(myStrings));
+int F=0;
+int f=0;
+int L=0;
+
 // Encoder Pins (Must be interrupt pins)
 //motorA
+const int forw=500;
+const int forward=1000;
+const int turn=350;
+const int lefty=150;
+const int righty=150;
+const int leftyt=120;
+const int rightyt=120;
+
+//must input
+const int time=___;
+
+int ary=sizeof(myStrings)/sizeof(myStrings[0]);
+for (int i=0; i<ary; i++){
+	if (myStrings[i]== F || myStrings[i]=B){
+		F++;
+}
+elif (myStrings[i]== f || myStrings[i]=b){
+		f++;
+}
+elif (myStrings[i]== L || myStrings[i]=R){
+		L++;
+}
+}	
+//calculate	
+const int delay=(time-(F*timeF+f*timef+sizeof()*timeL)/(sizeof(myStrings));
+
+
 int directionPinR = 12;
 int pwmPinR = 3;
 int brakePinR = 9;
@@ -43,12 +52,12 @@ bool started = false;
 bool directionState;
 
 //boolean for move
-bool moveOver = false;
+// bool moveOver = false;
 
-//encodermath
-volatile long encoderTicksR = 0;
-volatile long encoderTicksL = 0;
-long targetTicks = 0;
+// //encodermath
+// volatile long encoderTicksR = 0;
+// volatile long encoderTicksL = 0;
+// long targetTicks = 0;
 
 //route                 VVV EDIT HERE VVV
 char *myStrings[] = {"F", "B", "L", "R", "F", "B"};
@@ -108,9 +117,9 @@ void moveForward()  {
   // encoderTicksR = 0;
   // encoderTicksL = 0;
   // targetTicks = 700;
-  analogWrite(pwmPinR, 150);   // Set speed
-  analogWrite(pwmPinL, 150);
-  delay(1000);
+  analogWrite(pwmPinR, righty);   // Set speed
+  analogWrite(pwmPinL, lefty);
+  delay(forward);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
@@ -126,9 +135,9 @@ void movefor()  {
   //release breaks
   digitalWrite(brakePinR, LOW);
   digitalWrite(brakePinL, LOW);
-  analogWrite(pwmPinR, 150);   // Set speed
-  analogWrite(pwmPinL, 150);
-  delay(500);
+  analogWrite(pwmPinR, righty);   // Set speed
+  analogWrite(pwmPinL, lefty);
+  delay(forw);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
@@ -144,9 +153,9 @@ void moveBackward()  {
   //release breaks
   digitalWrite(brakePinR, LOW);
   digitalWrite(brakePinL, LOW);
-  analogWrite(pwmPinR, 150);   // Set speed
-  analogWrite(pwmPinL, 150);
-  delay(1000);
+  analogWrite(pwmPinR, righty);   // Set speed
+  analogWrite(pwmPinL, lefty);
+  delay(forward);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
@@ -184,9 +193,9 @@ void moveback()  {
   //release breaks
   digitalWrite(brakePinR, LOW);
   digitalWrite(brakePinL, LOW);
-  analogWrite(pwmPinR, 150);   // Set speed
-  analogWrite(pwmPinL, 150);
-  delay(500);
+  analogWrite(pwmPinR, righty);   // Set speed
+  analogWrite(pwmPinL, lefty);
+  delay(forw);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
@@ -202,9 +211,9 @@ void turnLeft()  {
   //release breaks
   digitalWrite(brakePinR, LOW);
   digitalWrite(brakePinL, LOW);
-  analogWrite(pwmPinR, 120);   // Set speed
-  analogWrite(pwmPinL, 120);
-  delay(350);
+  analogWrite(pwmPinR, rghtyt);   // Set speed
+  analogWrite(pwmPinL, leftyt);
+  delay(turn);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
@@ -244,9 +253,9 @@ void turnRight()  {
   //release breaks
   digitalWrite(brakePinR, LOW);
   digitalWrite(brakePinL, LOW);
-  analogWrite(pwmPinR, 120);   // Set speed
-  analogWrite(pwmPinL, 120);
-  delay(350);
+  analogWrite(pwmPinR, rightyt);   // Set speed
+  analogWrite(pwmPinL, leftyt);
+  delay(turn);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
