@@ -10,10 +10,11 @@ int t=0;
 const int forw=500;
 const int forward=1000;
 const int turn=350;
+// power functions
 const int lefty=150;
 const int righty=150;
 const int leftyt=120;
-const int rightyt=120;
+const int rightyt=120; 
 
 //must input
 const int timet=___*1000;
@@ -38,7 +39,7 @@ bool started = false;
 bool directionState;
 
 //boolean for move
-// bool moveOver = false;
+bool moveOver = false;
 
 // //encodermath
 // volatile long encoderTicksR = 0;
