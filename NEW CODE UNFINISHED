@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cmath>
 // //setup outside any function
-int F=0;
+int fl=0;
 int f=0;
-int L=0;
+int t=0;
 
 // Encoder Pins (Must be interrupt pins)
 //motorA
@@ -19,20 +19,6 @@ const int rightyt=120;
 const int time=___;
 
 int ary=sizeof(myStrings)/sizeof(myStrings[0]);
-for (int i=0; i<ary; i++){
-	if (myStrings[i]== F || myStrings[i]=B){
-		F++;
-}
-elif (myStrings[i]== f || myStrings[i]=b){
-		f++;
-}
-elif (myStrings[i]== L || myStrings[i]=R){
-		L++;
-}
-}	
-//calculate	
-const int delay=(time-(F*timeF+f*timef+sizeof()*timeL)/(sizeof(myStrings));
-
 
 int directionPinR = 12;
 int pwmPinR = 3;
@@ -63,7 +49,19 @@ bool directionState;
 char *myStrings[] = {"F", "B", "L", "R", "F", "B"};
 
 void setup() {
-  
+for (int i=0; i<ary; i++){
+	if (myStrings[i]== "F" || myStrings[i]=="B"){
+		fl++;
+}
+else if (myStrings[i]== "f" || myStrings[i]=="b"){
+		f++;
+}
+else if (myStrings[i]== "L" || myStrings[i]="R"){
+		t++;
+}
+}
+//calculate	
+const int dela=(time-(F*forward+f*forw+t*timeL)/(sizeof(myStrings));	
 //define pins
 pinMode(directionPinR, OUTPUT);
 pinMode(pwmPinR, OUTPUT);
@@ -300,42 +298,42 @@ for (int i = 0; i < sizeof(myStrings); i++)
     while(moveOver != true){
       
     }
-    delay(1000);
+    delay(dela);
   }
   else if(myStrings[i] == "B")  {
     moveBackward();
     while(moveOver != true){
       
     }
-    delay(1000);
+    delay(dela);
   }
   else if(myStrings[i] == "b")  {
     moveback();
     while(moveOver != true){
       
     }
-    delay(1000);
+    delay(dela);
   }
     else if(myStrings[i] == "f")  {
     movefor();
     while(moveOver != true){
       
     }
-    delay(1000);
+    delay(dela);
   }
   else if(myStrings[i] == "L")  {
     turnLeft();
     while(moveOver != true){
       
     }
-    delay(1000);
+    delay(dela);
   }
   else if(myStrings[i] == "R")  {
     turnRight();
     while(moveOver != true){
       
     }
-    delay(1000);
+    delay(dela);
   }
 }
 
