@@ -110,7 +110,7 @@ void moveForward()  {
   digitalWrite(directionPinL, HIGH);
   //release breaks
   digitalWrite(brakePinR, LOW);
-  // digitalWrite(brakePinL, LOW);
+  digitalWrite(brakePinL, LOW);
   
   // encoderTicksR = 0;
   // encoderTicksL = 0;
