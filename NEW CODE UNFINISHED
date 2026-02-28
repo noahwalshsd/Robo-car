@@ -62,7 +62,8 @@ else if (myStrings[i]== "L" || myStrings[i]=="R"){
 }
 }
 //calculate	
-const int dela=(timet-(fl*forward+f*forw+t*turn)/(sizeof(myStrings));	
+const int dela=(timet-(fl*forward+f*forw+t*turn)/(sizeof(myStrings));
+
 //define pins
 pinMode(directionPinR, OUTPUT);
 pinMode(pwmPinR, OUTPUT);
@@ -157,7 +158,7 @@ void moveBackward()  {
   delay(forward);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
-  digitalWrite(brakePinR, HIGH);
+  digitalWrite(brakePinR, HIGH);  //engage brakes
   digitalWrite(brakePinL, HIGH);
   moveOver = true;
   // //direction set
