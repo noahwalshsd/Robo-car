@@ -24,9 +24,6 @@
 // //calculate	
 // const int delay=(time-(F*timeF+f*timef+sizeof()*timeL)/(sizeof(myStrings));
 // Encoder Pins (Must be interrupt pins)
-const int encoderPinA = 18; 
-const int encoderPinB = 19;
-
 //motorA
 int directionPinR = 12;
 int pwmPinR = 3;
@@ -69,35 +66,35 @@ pinMode(brakePinL, OUTPUT);
 
 pinMode(startPin, INPUT);
 
-// Attach interrupt to pin A (Trigger on RISING edge)
-  attachInterrupt(digitalPinToInterrupt(encoderPinA), countEncoderR, RISING);
+// // Attach interrupt to pin A (Trigger on RISING edge)
+//   attachInterrupt(digitalPinToInterrupt(encoderPinA), countEncoderR, RISING);
 
-// Attach interrupt to pin b (Trigger on RISING edge)
-  attachInterrupt(digitalPinToInterrupt(encoderPinB), countEncoderL, RISING);
+// // Attach interrupt to pin b (Trigger on RISING edge)
+//   attachInterrupt(digitalPinToInterrupt(encoderPinB), countEncoderL, RISING);
 
 Serial.begin(9600);
 }
 
-// Encoder interrupt function
-void countEncoderR() {
-  // Check direction based on Phase B
-  //if (digitalRead(encoderPinB) == HIGH) {
-  encoderTicksR++;
-  //Serial.println(encoderTicks);
-  //} else {
-  //  encoderTicks--;
-  //}
-}
+// // Encoder interrupt function
+// void countEncoderR() {
+//   // Check direction based on Phase B
+//   //if (digitalRead(encoderPinB) == HIGH) {
+//   encoderTicksR++;
+//   //Serial.println(encoderTicks);
+//   //} else {
+//   //  encoderTicks--;
+//   //}
+// }
 
-void countEncoderL() {
-  // Check direction based on Phase B
-  //if (digitalRead(encoderPinB) == HIGH) {
-  encoderTicksL++;
-  //Serial.println(encoderTicks);
-  //} else {
-  //  encoderTicks--;
-  //}
-}
+// void countEncoderL() {
+//   // Check direction based on Phase B
+//   //if (digitalRead(encoderPinB) == HIGH) {
+//   encoderTicksL++;
+//   //Serial.println(encoderTicks);
+//   //} else {
+//   //  encoderTicks--;
+//   //}
+// }
 
 void moveForward()  {
   moveOver = false;
@@ -106,22 +103,18 @@ void moveForward()  {
   digitalWrite(directionPinL, HIGH);
   //release breaks
   digitalWrite(brakePinR, LOW);
-  digitalWrite(brakePinL, LOW);
+  // digitalWrite(brakePinL, LOW);
   
-  encoderTicksR = 0;
-  encoderTicksL = 0;
-  targetTicks = 700;
-
-  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
-    analogWrite(pwmPinR, 150);   // Set speed
-    analogWrite(pwmPinL, 150);
-  }
+  // encoderTicksR = 0;
+  // encoderTicksL = 0;
+  // targetTicks = 700;
+  analogWrite(pwmPinR, 150);   // Set speed
+  analogWrite(pwmPinL, 150);
+  delay(1000);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
   digitalWrite(brakePinL, HIGH);
-  Serial.println("Move Completed.");
-  Serial.println(encoderTicksL + "+" + encoderTicksR);
   moveOver = true;
 }
 
@@ -133,21 +126,13 @@ void movefor()  {
   //release breaks
   digitalWrite(brakePinR, LOW);
   digitalWrite(brakePinL, LOW);
-  
-  encoderTicksR = 0;
-  encoderTicksL = 0;
-  targetTicks = 350;
-
-  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
-    analogWrite(pwmPinR, 150);   // Set speed
-    analogWrite(pwmPinL, 150);
-  }
+  analogWrite(pwmPinR, 150);   // Set speed
+  analogWrite(pwmPinL, 150);
+  delay(500);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
   digitalWrite(brakePinL, HIGH);
-  Serial.println("Move Completed.");
-  Serial.println(encoderTicksL + "+" + encoderTicksR);
   moveOver = true;
 }
 
@@ -159,21 +144,13 @@ void moveBackward()  {
   //release breaks
   digitalWrite(brakePinR, LOW);
   digitalWrite(brakePinL, LOW);
-  
-  encoderTicksR = 0;
-  encoderTicksL = 0;
-  targetTicks = 700;
-
-  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
-    analogWrite(pwmPinR, 150);   // Set speed
-    analogWrite(pwmPinL, 150);
-  }
+  analogWrite(pwmPinR, 150);   // Set speed
+  analogWrite(pwmPinL, 150);
+  delay(1000);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
   digitalWrite(brakePinL, HIGH);
-  Serial.println("Move Completed.");
-  Serial.println(encoderTicksL + "+" + encoderTicksR);
   moveOver = true;
   // //direction set
   // digitalWrite(directionPinR, HIGH);
@@ -207,21 +184,13 @@ void moveback()  {
   //release breaks
   digitalWrite(brakePinR, LOW);
   digitalWrite(brakePinL, LOW);
-  
-  encoderTicksR = 0;
-  encoderTicksL = 0;
-  targetTicks = 350;
-
-  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
-    analogWrite(pwmPinR, 150);   // Set speed
-    analogWrite(pwmPinL, 150);
-  }
+  analogWrite(pwmPinR, 150);   // Set speed
+  analogWrite(pwmPinL, 150);
+  delay(500);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
   digitalWrite(brakePinL, HIGH);
-  Serial.println("Move Completed.");
-  Serial.println(encoderTicksL + "+" + encoderTicksR);
   moveOver = true;
 }
 
@@ -233,21 +202,13 @@ void turnLeft()  {
   //release breaks
   digitalWrite(brakePinR, LOW);
   digitalWrite(brakePinL, LOW);
-  
-  encoderTicksR = 0;
-  encoderTicksL = 0;
-  targetTicks = 143;
-
-  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
-    analogWrite(pwmPinR, 120);   // Set speed
-    analogWrite(pwmPinL, 120);
-  }
+  analogWrite(pwmPinR, 120);   // Set speed
+  analogWrite(pwmPinL, 120);
+  delay(350);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
   digitalWrite(brakePinL, HIGH);
-  Serial.println("Move Completed.");
-  Serial.println(encoderTicksL + "+" + encoderTicksR);
   moveOver = true;
 
   // //direction set
@@ -283,21 +244,13 @@ void turnRight()  {
   //release breaks
   digitalWrite(brakePinR, LOW);
   digitalWrite(brakePinL, LOW);
-  
-  encoderTicksR = 0;
-  encoderTicksL = 0;
-  targetTicks = 143;
-
-  while (encoderTicksL < targetTicks && encoderTicksR < targetTicks) {
-    analogWrite(pwmPinR, 120);   // Set speed
-    analogWrite(pwmPinL, 120);
-  }
+  analogWrite(pwmPinR, 120);   // Set speed
+  analogWrite(pwmPinL, 120);
+  delay(350);
   analogWrite(pwmPinR, 0);
   analogWrite(pwmPinL, 0);     // Speed 0
   digitalWrite(brakePinR, HIGH);
   digitalWrite(brakePinL, HIGH);
-  Serial.println("Move Completed.");
-  Serial.println(encoderTicksL + "+" + encoderTicksR);
   moveOver = true;
 
   // //direction set
