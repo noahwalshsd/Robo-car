@@ -16,7 +16,7 @@ const int leftyt=120;
 const int rightyt=120;
 
 //must input
-const int time=___;
+const int timet=___*1000;
 
 int ary=sizeof(myStrings)/sizeof(myStrings[0]);
 
@@ -56,12 +56,12 @@ for (int i=0; i<ary; i++){
 else if (myStrings[i]== "f" || myStrings[i]=="b"){
 		f++;
 }
-else if (myStrings[i]== "L" || myStrings[i]="R"){
+else if (myStrings[i]== "L" || myStrings[i]=="R"){
 		t++;
 }
 }
 //calculate	
-const int dela=(time-(F*forward+f*forw+t*timeL)/(sizeof(myStrings));	
+const int dela=(timet-(fl*forward+f*forw+t*turn)/(sizeof(myStrings));	
 //define pins
 pinMode(directionPinR, OUTPUT);
 pinMode(pwmPinR, OUTPUT);
@@ -209,7 +209,7 @@ void turnLeft()  {
   //release breaks
   digitalWrite(brakePinR, LOW);
   digitalWrite(brakePinL, LOW);
-  analogWrite(pwmPinR, rghtyt);   // Set speed
+  analogWrite(pwmPinR, rightyt);   // Set speed
   analogWrite(pwmPinL, leftyt);
   delay(turn);
   analogWrite(pwmPinR, 0);
